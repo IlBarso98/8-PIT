@@ -70,4 +70,13 @@ npm run ping:mongo
 ```
 
 Lo script (`server/pingMongo.js`) usa il driver ufficiale (`mongodb`) e invia un semplice `ping` al DB `admin`. È separato dal bundle Phaser in modo che le credenziali non finiscano nel client.
+
+### Pubblicazione su GitHub Pages
+
+1. Esegui `npm run build` in locale per verificare che la cartella `dist/` venga generata senza errori.
+2. Commita tutto il progetto (eccetto `node_modules`/`dist`, già esclusi nel `.gitignore`) e fai push sul branch `main` del repo GitHub.
+3. Nelle impostazioni del repository apri **Settings → Pages** e, in *Build and deployment → Source*, seleziona **GitHub Actions**.
+4. Il workflow `.github/workflows/deploy.yml` si occuperà di installare le dipendenze, lanciare `npm run build` e pubblicare automaticamente il contenuto di `dist/` sul branch `gh-pages`.
+5. Al termine della action troverai l’URL pubblico (es. `https://<utente>.github.io/8-PIT/`) direttamente nella pagina dei log o nella sezione Pages.
+6. Ogni nuovo push su `main` farà ripartire la build e aggiornerà il sito senza interventi manuali.
 # 8-PIT

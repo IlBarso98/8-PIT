@@ -1,0 +1,19 @@
+{
+  "name": "8-pit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "ping:mongo": "node ./server/pingMongo.js"
+  },
+  "devDependencies": {
+    "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "mongodb": "^7.0.0",
+    "phaser": "^3.90.0"
+  }
+}

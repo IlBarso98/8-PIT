@@ -1,0 +1,39 @@
+[
+  {
+    "id": "pit-001",
+    "text": "Se non studio entro in modalità schermata blu.",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "03/02/2025",
+    "source": "Notes"
+  },
+  {
+    "id": "pit-002",
+    "text": "Ho deciso di preparare l'esame come se fosse un vecchio videogioco 8-bit.",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "11/01/2025"
+  },
+  {
+    "id": "fam-001",
+    "text": "Stay hungry, stay foolish.",
+    "tag": "famoso",
+    "author": "Steve Jobs",
+    "date": "2005",
+    "source": "Stanford"
+  },
+  {
+    "id": "fam-002",
+    "text": "Che la forza sia con te.",
+    "tag": "famoso",
+    "author": "Obi-Wan Kenobi",
+    "date": "1977"
+  },
+  {
+    "id": "fam-003",
+    "text": "La creatività è contagiosa, trasmettila.",
+    "tag": "famoso",
+    "author": "Albert Einstein",
+    "date": "1949"
+  }
+]
