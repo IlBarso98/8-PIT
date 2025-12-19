@@ -15,8 +15,7 @@ export default class LagoDiRughiScene extends Phaser.Scene {
     this.timeRemaining = 60
     this.cameras.main.setBackgroundColor('#062942')
     const bg = this.add.image(width / 2, height / 2, 'lake-bg').setOrigin(0.5)
-    const bgScale = Math.max(width / bg.width, height / bg.height)
-    bg.setScale(bgScale)
+    bg.setDisplaySize(width, height)
     this.waterLine = Math.floor(height * 0.63)
 
     this.timerText = this.add
@@ -116,8 +115,10 @@ export default class LagoDiRughiScene extends Phaser.Scene {
     this.lineGraphics.beginPath()
     const anchorX = this.rodTip.x
     const anchorY = this.rodTip.y
-    const targetX = this.lineRetracted ? anchorX : anchorX + length
-    const targetY = this.lineRetracted ? anchorY : this.waterLine + 6
+    const horizontal = this.lineRetracted ? 0 : length * 0.7
+    const vertical = this.lineRetracted ? 0 : Math.min(80, length * 0.35)
+    const targetX = anchorX + horizontal
+    const targetY = this.lineRetracted ? anchorY : Math.min(this.scale.height - 30, this.waterLine + 10 + vertical)
     this.lineGraphics.moveTo(anchorX - 4, anchorY - 6)
     this.lineGraphics.lineTo(anchorX, anchorY)
     this.lineGraphics.lineTo(targetX, targetY)

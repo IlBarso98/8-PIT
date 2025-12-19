@@ -68,11 +68,7 @@ export const createGame = () => {
       }
     })
     resetMinigameState()
-    if (mgr.isSleeping && mgr.isSleeping('StartScene')) {
-      mgr.wake('StartScene')
-    } else {
-      mgr.start('StartScene')
-    }
+    mgr.start('StartScene')
     mgr.bringToTop('UIScene')
   })
 
