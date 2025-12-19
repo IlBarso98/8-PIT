@@ -32,25 +32,11 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     this.score = 0
     this.totalPages = 10
 
-    const pagePanel = this.add.rectangle(80, 48, 140, 38, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
+    this.pageText = null
     const timerPanel = this.add.rectangle(width - 220, 48, 220, 38, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
-    this.pageText = this.add.text(pagePanel.x + 10, pagePanel.y, 'Pagina 1/10', {
-      fontSize: '12px',
-      color: '#facc15',
-    }).setOrigin(0, 0.5)
     this.timerText = this.add
       .text(timerPanel.x + timerPanel.width - 10, timerPanel.y, 'Voto: 0/30', { fontSize: '12px', color: '#facc15' })
       .setOrigin(1, 0.5)
-
-    const votePanel = this.add.rectangle(width / 2, 110, width * 0.7, 44, 0x0a0a0a, 0.7).setStrokeStyle(2, 0xf97316, 0.9)
-    this.voteText = this.add
-      .text(votePanel.x, votePanel.y, 'Voto in calcolo…', {
-        fontSize: '11px',
-        color: '#fef3c7',
-        align: 'center',
-        wordWrap: { width: votePanel.width - 20 },
-      })
-      .setOrigin(0.5)
 
     this.pageTimer = this.time.addEvent({
       delay: 1000,
@@ -71,7 +57,6 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
       }
       this.page += 1
       this.pageCountdown = 10
-      this.pageText.setText(`Pagina ${this.page}/${this.totalPages}`)
     }
     this.timerText.setText(`Voto: ${this.getVoteString()}`)
   }
@@ -118,7 +103,6 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
   }
 
   updateVoteText() {
-    this.voteText.setText(`Parziale: ${this.score}`)
     this.timerText.setText(`Voto: ${this.getVoteString()}`)
   }
 
@@ -133,8 +117,12 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     if (this.isGameOver) return
     this.isGameOver = true
     this.stopAll()
-    const final = this.score >= 31 ? 'Voto: 30 e lode' : this.score < 18 ? 'Pit ha bocciato l’esame' : `Il voto di Pit all’esame è: ${this.score}`
-    this.voteText.setText(final)
+    if (this.score < 18) {
+      this.showLossOverlay('Pit ha bocciato l’esame')
+      return
+    }
+    const final =
+      this.score >= 31 ? 'Voto: 30 e lode' : `Il voto di Pit all’esame è: ${Math.min(this.score, 30)}`
     this.showWinOverlay(final)
   }
 
@@ -150,7 +138,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     }
   }
 
-  showLossOverlay() {
+  showLossOverlay(customText) {
     const { width, height } = this.scale
     const panel = this.add.container(width / 2, height / 2).setDepth(20)
     const bg = this.add.rectangle(0, 0, width * 0.9, height * 0.9, 0x000000, 0.75).setOrigin(0.5)
@@ -158,7 +146,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     const img = this.add.image(0, -40, 'pit-deconcentrato').setOrigin(0.5)
     const scale = Math.min((width * 0.6) / img.width, (height * 0.4) / img.height)
     img.setScale(scale)
-    const text = this.add.text(0, height * 0.14, 'Pit ha perso la concentrazione!', {
+    const text = this.add.text(0, height * 0.14, customText || 'Pit ha perso la concentrazione!', {
       fontSize: '12px',
       color: '#f8fafc',
       align: 'center',
