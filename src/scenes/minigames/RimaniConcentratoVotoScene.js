@@ -32,6 +32,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     this.score = 0
     this.totalPages = 10
     this.trapActive = null
+    this.trapTimer = null
 
     this.pageText = null
     const timerPanel = this.add.rectangle(width - 220, 48, 220, 38, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
@@ -201,37 +202,39 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
       this.trapTimer.remove(false)
     }
     this.trapTimer = this.time.addEvent({
-      delay: Phaser.Math.Between(2500, 4500),
-      loop: false,
+      delay: Phaser.Math.Between(1800, 3200),
+      loop: true,
       callback: () => this.spawnTrap(),
     })
   }
 
   spawnTrap() {
-    if (this.isGameOver || this.activeStone) {
-      this.scheduleTrap()
-      return
-    }
+    if (this.isGameOver) return
+    if (this.trapActive) return
     const { x, y } = this.getSafePosition()
     const trapKeys = ['trap-sigaretta', 'trap-missbo', 'trap-milan']
     const key = Phaser.Utils.Array.GetRandom(trapKeys)
     this.trapActive = this.add.image(x, y, key).setDisplaySize(52, 52).setInteractive({ useHandCursor: true })
-    this.trapActive.once('pointerdown', () => this.hitTrap())
+    this.trapActive.once('pointerdown', () => this.hitTrap(key))
     this.time.delayedCall(this.getWindowDuration(), () => {
       if (this.trapActive) {
         this.trapActive.destroy()
         this.trapActive = null
       }
-      this.scheduleTrap()
     })
   }
 
-  hitTrap() {
+  hitTrap(key) {
     if (!this.trapActive || this.isGameOver) return
-    this.score = Math.max(0, this.score - 1)
+    const penalties = {
+      'trap-sigaretta': 1,
+      'trap-missbo': 2,
+      'trap-milan': 3,
+    }
+    const malus = penalties[key] || 1
+    this.score = Math.max(0, this.score - malus)
     this.updateVoteText()
     this.trapActive.destroy()
     this.trapActive = null
-    this.scheduleTrap()
   }
 }
