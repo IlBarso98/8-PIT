@@ -9,6 +9,7 @@ import UIScene from './scenes/UIScene'
 import PitOrNonPitScene from './scenes/minigames/PitOrNonPitScene'
 import LagoDiRughiScene from './scenes/minigames/LagoDiRughiScene'
 import RimaniConcentratoScene from './scenes/minigames/RimaniConcentratoScene'
+import RimaniConcentratoVotoScene from './scenes/minigames/RimaniConcentratoVotoScene'
 import ImprecazioniScene from './scenes/minigames/ImprecazioniScene'
 import { resetMinigameState } from './state/store'
 
@@ -22,6 +23,7 @@ const scenes = [
   PitOrNonPitScene,
   LagoDiRughiScene,
   RimaniConcentratoScene,
+  RimaniConcentratoVotoScene,
   ImprecazioniScene,
 ]
 

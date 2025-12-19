@@ -1,12 +1,21 @@
 import Phaser from 'phaser'
 import { signalInteraction } from '../../utils/audio'
 
-export default class RimaniConcentratoScene extends Phaser.Scene {
+const SCORES = {
+  0: 2, // blu
+  1: 1, // rosa
+  2: 3, // verde
+}
+
+export default class RimaniConcentratoVotoScene extends Phaser.Scene {
   constructor() {
-    super('RimaniConcentratoScene')
+    super('RimaniConcentratoVotoScene')
     this.page = 1
     this.pageCountdown = 10
     this.activeStone = null
+    this.score = 0
+    this.totalPages = 10
+    this.isGameOver = false
   }
 
   create() {
@@ -20,8 +29,8 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
     this.page = 1
     this.pageCountdown = 10
     this.isGameOver = false
+    this.score = 0
     this.totalPages = 10
-    this.lossOverlay = null
 
     const pagePanel = this.add.rectangle(80, 48, 140, 38, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
     const timerPanel = this.add.rectangle(width - 220, 48, 220, 38, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
@@ -30,8 +39,18 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
       color: '#facc15',
     }).setOrigin(0, 0.5)
     this.timerText = this.add
-      .text(timerPanel.x + timerPanel.width - 10, timerPanel.y, 'Tempo pag.: 10', { fontSize: '12px', color: '#facc15' })
+      .text(timerPanel.x + timerPanel.width - 10, timerPanel.y, 'Voto: 0/30', { fontSize: '12px', color: '#facc15' })
       .setOrigin(1, 0.5)
+
+    const votePanel = this.add.rectangle(width / 2, 110, width * 0.7, 44, 0x0a0a0a, 0.7).setStrokeStyle(2, 0xf97316, 0.9)
+    this.voteText = this.add
+      .text(votePanel.x, votePanel.y, 'Il voto di Pit all’esame è: 0', {
+        fontSize: '11px',
+        color: '#fef3c7',
+        align: 'center',
+        wordWrap: { width: votePanel.width - 20 },
+      })
+      .setOrigin(0.5)
 
     this.pageTimer = this.time.addEvent({
       delay: 1000,
@@ -42,25 +61,28 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
     this.spawnStone()
   }
 
-  addBackgroundSilhouettes() {}
-
   tickPage() {
     if (this.isGameOver) return
     this.pageCountdown -= 1
     if (this.pageCountdown <= 0) {
       if (this.page >= this.totalPages) {
-        this.winGame()
+        this.endWithScore()
         return
       }
       this.page += 1
       this.pageCountdown = 10
       this.pageText.setText(`Pagina ${this.page}/${this.totalPages}`)
     }
-    this.timerText.setText(`Tempo pag.: ${this.pageCountdown}`)
+    this.timerText.setText(`Voto: ${this.getVoteString()}`)
+  }
+
+  getVoteString() {
+    if (this.score >= 31) return '30 e lode'
+    return `${Math.min(this.score, 30)}/30`
   }
 
   getWindowDuration() {
-    const base = 1700 // allunga di ~0.5s rispetto a prima
+    const base = 1700
     const reduction = (this.page - 1) * 40
     return Math.max(base - reduction, 600)
   }
@@ -76,17 +98,34 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
       .image(position.x, position.y, `rock-${colorIndex}`)
       .setDisplaySize(52, 52)
       .setInteractive({ useHandCursor: true })
-    this.activeStone.once('pointerdown', () => this.collectStone())
+    this.activeStone.once('pointerdown', () => this.collectStone(colorIndex))
     this.deadline = this.time.delayedCall(this.getWindowDuration(), () => this.failGame(), null, this)
   }
 
-  collectStone() {
+  collectStone(colorIndex) {
     if (this.isGameOver) return
     signalInteraction(this, 520)
+    this.score += SCORES[colorIndex] || 0
+    this.updateVoteText()
+    if (this.score >= 31) {
+      this.endWithScore()
+      return
+    }
     if (this.deadline) {
       this.deadline.remove(false)
     }
     this.spawnStone()
+  }
+
+  updateVoteText() {
+    if (this.score < 18) {
+      this.voteText.setText('Pit ha bocciato l’esame')
+    } else if (this.score >= 31) {
+      this.voteText.setText('Voto: 30 e lode')
+    } else {
+      this.voteText.setText(`Il voto di Pit all’esame è: ${this.score}`)
+    }
+    this.timerText.setText(`Voto: ${this.getVoteString()}`)
   }
 
   failGame() {
@@ -96,47 +135,12 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
     this.stopAll()
   }
 
-  winGame() {
+  endWithScore() {
     if (this.isGameOver) return
     this.isGameOver = true
-    this.showWinOverlay()
     this.stopAll()
-  }
-
-  showLossOverlay() {
-    const { width, height } = this.scale
-    const panel = this.add.container(width / 2, height / 2).setDepth(20)
-    const bg = this.add.rectangle(0, 0, width * 0.9, height * 0.9, 0x000000, 0.75).setOrigin(0.5)
-    const card = this.add.rectangle(0, 0, width * 0.8, height * 0.7, 0x0a0a0a, 0.8).setStrokeStyle(3, 0xfacc15, 0.9)
-    const img = this.add.image(0, -40, 'pit-deconcentrato').setOrigin(0.5)
-    const scale = Math.min((width * 0.6) / img.width, (height * 0.4) / img.height)
-    img.setScale(scale)
-    const text = this.add.text(0, height * 0.14, 'Pit si è deconcentrato e non passerà l’esame', {
-      fontSize: '12px',
-      color: '#f8fafc',
-      align: 'center',
-      wordWrap: { width: width * 0.7 },
-    }).setOrigin(0.5)
-    panel.add([bg, card, img, text])
-    this.lossOverlay = panel
-  }
-
-  showWinOverlay() {
-    const { width, height } = this.scale
-    const panel = this.add.container(width / 2, height / 2).setDepth(20)
-    const bg = this.add.rectangle(0, 0, width * 0.9, height * 0.9, 0x000000, 0.75).setOrigin(0.5)
-    const card = this.add.rectangle(0, 0, width * 0.8, height * 0.7, 0x0a0a0a, 0.8).setStrokeStyle(3, 0xfacc15, 0.9)
-    const img = this.add.image(0, -40, 'pit-laureato').setOrigin(0.5)
-    const scale = Math.min((width * 0.6) / img.width, (height * 0.4) / img.height)
-    img.setScale(scale)
-    const text = this.add.text(0, height * 0.14, 'Pit è rimasto concentrato e ha passato l’esame', {
-      fontSize: '12px',
-      color: '#f8fafc',
-      align: 'center',
-      wordWrap: { width: width * 0.7 },
-    }).setOrigin(0.5)
-    panel.add([bg, card, img, text])
-    this.winOverlay = panel
+    const final = this.score >= 31 ? 'Voto: 30 e lode' : this.score < 18 ? 'Pit ha bocciato l’esame' : `Il voto di Pit all’esame è: ${this.score}`
+    this.showWinOverlay(final)
   }
 
   stopAll() {
@@ -149,6 +153,42 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
     if (this.activeStone) {
       this.activeStone.disableInteractive()
     }
+  }
+
+  showLossOverlay() {
+    const { width, height } = this.scale
+    const panel = this.add.container(width / 2, height / 2).setDepth(20)
+    const bg = this.add.rectangle(0, 0, width * 0.9, height * 0.9, 0x000000, 0.75).setOrigin(0.5)
+    const card = this.add.rectangle(0, 0, width * 0.8, height * 0.7, 0x0a0a0a, 0.8).setStrokeStyle(3, 0xfacc15, 0.9)
+    const img = this.add.image(0, -40, 'pit-deconcentrato').setOrigin(0.5)
+    const scale = Math.min((width * 0.6) / img.width, (height * 0.4) / img.height)
+    img.setScale(scale)
+    const text = this.add.text(0, height * 0.14, 'Pit ha perso la concentrazione!', {
+      fontSize: '12px',
+      color: '#f8fafc',
+      align: 'center',
+      wordWrap: { width: width * 0.7 },
+    }).setOrigin(0.5)
+    panel.add([bg, card, img, text])
+    this.lossOverlay = panel
+  }
+
+  showWinOverlay(finalText) {
+    const { width, height } = this.scale
+    const panel = this.add.container(width / 2, height / 2).setDepth(20)
+    const bg = this.add.rectangle(0, 0, width * 0.9, height * 0.9, 0x000000, 0.75).setOrigin(0.5)
+    const card = this.add.rectangle(0, 0, width * 0.8, height * 0.7, 0x0a0a0a, 0.8).setStrokeStyle(3, 0xfacc15, 0.9)
+    const img = this.add.image(0, -40, 'pit-laureato').setOrigin(0.5)
+    const scale = Math.min((width * 0.6) / img.width, (height * 0.4) / img.height)
+    img.setScale(scale)
+    const text = this.add.text(0, height * 0.14, finalText, {
+      fontSize: '12px',
+      color: '#f8fafc',
+      align: 'center',
+      wordWrap: { width: width * 0.7 },
+    }).setOrigin(0.5)
+    panel.add([bg, card, img, text])
+    this.winOverlay = panel
   }
 
   getSafePosition() {
