@@ -23,13 +23,14 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
     this.totalPages = 10
     this.lossOverlay = null
 
-    const hudBg = this.add.rectangle(width / 2, 48, width * 0.92, 42, 0x000000, 0.55).setStrokeStyle(2, 0xfacc15, 0.8)
-    this.pageText = this.add.text(hudBg.x - hudBg.width / 2 + 12, hudBg.y, 'Pagina 1/10', {
+    const pagePanel = this.add.rectangle(80, 48, 140, 38, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
+    const timerPanel = this.add.rectangle(width - 220, 48, 220, 38, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
+    this.pageText = this.add.text(pagePanel.x + 10, pagePanel.y, 'Pagina 1/10', {
       fontSize: '12px',
       color: '#facc15',
     }).setOrigin(0, 0.5)
     this.timerText = this.add
-      .text(hudBg.x + hudBg.width / 2 - 12, hudBg.y, 'Tempo pag.: 10', { fontSize: '12px', color: '#facc15' })
+      .text(timerPanel.x + timerPanel.width - 10, timerPanel.y, 'Tempo pag.: 10', { fontSize: '12px', color: '#facc15' })
       .setOrigin(1, 0.5)
 
     this.pageTimer = this.time.addEvent({
@@ -98,8 +99,7 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
   winGame() {
     if (this.isGameOver) return
     this.isGameOver = true
-    this.statusText.setText('Pit è rimasto concentrato!')
-    this.statusText.setVisible(true)
+    this.showWinOverlay()
     this.stopAll()
   }
 
@@ -119,6 +119,24 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
     }).setOrigin(0.5)
     panel.add([bg, card, img, text])
     this.lossOverlay = panel
+  }
+
+  showWinOverlay() {
+    const { width, height } = this.scale
+    const panel = this.add.container(width / 2, height / 2).setDepth(20)
+    const bg = this.add.rectangle(0, 0, width * 0.9, height * 0.9, 0x000000, 0.75).setOrigin(0.5)
+    const card = this.add.rectangle(0, 0, width * 0.8, height * 0.7, 0x0a0a0a, 0.8).setStrokeStyle(3, 0xfacc15, 0.9)
+    const img = this.add.image(0, -40, 'Pitlaureato').setOrigin(0.5)
+    const scale = Math.min((width * 0.6) / img.width, (height * 0.4) / img.height)
+    img.setScale(scale)
+    const text = this.add.text(0, height * 0.14, 'Pit è rimasto concentrato! (Missione compiuta)', {
+      fontSize: '12px',
+      color: '#f8fafc',
+      align: 'center',
+      wordWrap: { width: width * 0.7 },
+    }).setOrigin(0.5)
+    panel.add([bg, card, img, text])
+    this.winOverlay = panel
   }
 
   stopAll() {

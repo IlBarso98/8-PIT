@@ -18,18 +18,19 @@ export default class LagoDiRughiScene extends Phaser.Scene {
     bg.setDisplaySize(width, height)
     this.waterLine = Math.floor(height * 0.62)
 
-    const hud = this.add
-      .rectangle(width / 2, 52, width * 0.78, 36, 0x000000, 0.55)
-      .setStrokeStyle(2, 0xfacc15, 0.8)
+    const panelWidth = Math.min(200, width * 0.35)
+    const timerPanel = this.add.rectangle(20, 52, panelWidth, 36, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
+    const scorePanel = this.add.rectangle(width - panelWidth - 20, 52, panelWidth, 36, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
     this.timerText = this.add
-      .text(hud.x - hud.width / 2 + 10, hud.y, 'Tempo: 60', { fontSize: '12px', color: '#facc15' })
+      .text(timerPanel.x + 10, timerPanel.y, 'Tempo: 60', { fontSize: '12px', color: '#facc15' })
       .setOrigin(0, 0.5)
     this.scoreText = this.add
-      .text(hud.x + hud.width / 2 - 10, hud.y, 'Punteggio: 0', { fontSize: '12px', color: '#facc15' })
+      .text(scorePanel.x + scorePanel.width - 10, scorePanel.y, 'Punteggio: 0', { fontSize: '12px', color: '#facc15' })
       .setOrigin(1, 0.5)
 
+    const msgPanel = this.add.rectangle(width / 2, 112, width * 0.7, 40, 0x0b2438, 0.75).setStrokeStyle(2, 0x7dd3fc, 0.9)
     this.messageText = this.add
-      .text(width / 2, 110, 'Che calma irreale…', { fontSize: '10px', color: '#e0f2fe' })
+      .text(msgPanel.x, msgPanel.y, 'Che calma irreale…', { fontSize: '11px', color: '#e0f2fe' })
       .setOrigin(0.5)
 
     this.createPitAndLine()

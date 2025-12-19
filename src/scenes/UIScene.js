@@ -18,7 +18,7 @@ export default class UIScene extends Phaser.Scene {
 
   createButton(label, isIcon = false) {
     const container = this.add.container(0, 0)
-    const bg = this.add.image(0, 0, 'btn-basic').setScale(isIcon ? 0.35 : 0.4)
+    const bg = this.add.image(0, 0, 'btn-basic').setScale(isIcon ? 0.34 : 0.4)
     const text = this.add
       .text(0, 0, label, {
         fontSize: isIcon ? '14px' : '9px',
