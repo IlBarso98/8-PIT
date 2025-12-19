@@ -16,12 +16,17 @@ export default class LagoDiRughiScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#062942')
     const bg = this.add.image(width / 2, height / 2, 'lake-bg').setOrigin(0.5)
     bg.setDisplaySize(width, height)
-    this.waterLine = Math.floor(height * 0.63)
+    this.waterLine = Math.floor(height * 0.62)
 
+    const hud = this.add
+      .rectangle(width / 2, 52, width * 0.78, 36, 0x000000, 0.55)
+      .setStrokeStyle(2, 0xfacc15, 0.8)
     this.timerText = this.add
-      .text(30, 60, 'Tempo: 60', { fontSize: '12px', color: '#facc15' })
+      .text(hud.x - hud.width / 2 + 10, hud.y, 'Tempo: 60', { fontSize: '12px', color: '#facc15' })
       .setOrigin(0, 0.5)
-    this.scoreText = this.add.text(width - 40, 60, 'Punteggio: 0', { fontSize: '12px', color: '#facc15' }).setOrigin(1, 0.5)
+    this.scoreText = this.add
+      .text(hud.x + hud.width / 2 - 10, hud.y, 'Punteggio: 0', { fontSize: '12px', color: '#facc15' })
+      .setOrigin(1, 0.5)
 
     this.messageText = this.add
       .text(width / 2, 110, 'Che calma irreale…', { fontSize: '10px', color: '#e0f2fe' })

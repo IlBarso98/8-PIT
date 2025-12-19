@@ -22,8 +22,14 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
     this.isGameOver = false
     this.totalPages = 10
 
-    this.pageText = this.add.text(20, 60, 'Pagina 1/10', { fontSize: '12px', color: '#facc15' })
-    this.timerText = this.add.text(width - 20, 60, 'Tempo pag.: 10', { fontSize: '12px', color: '#facc15' }).setOrigin(1, 0.5)
+    const hudBg = this.add.rectangle(width / 2, 48, width * 0.92, 42, 0x000000, 0.55).setStrokeStyle(2, 0xfacc15, 0.8)
+    this.pageText = this.add.text(hudBg.x - hudBg.width / 2 + 12, hudBg.y, 'Pagina 1/10', {
+      fontSize: '12px',
+      color: '#facc15',
+    }).setOrigin(0, 0.5)
+    this.timerText = this.add
+      .text(hudBg.x + hudBg.width / 2 - 12, hudBg.y, 'Tempo pag.: 10', { fontSize: '12px', color: '#facc15' })
+      .setOrigin(1, 0.5)
 
     this.statusText = this.add
       .text(width / 2, height / 2, '', {
