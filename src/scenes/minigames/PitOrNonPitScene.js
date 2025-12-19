@@ -54,7 +54,7 @@ export default class PitOrNonPitScene extends Phaser.Scene {
     const { width, height } = this.scale
     this.buttons = [
       this.createChoiceButton(width / 2 - 80, height - 70, 'PIT', 'pit'),
-      this.createChoiceButton(width / 2 + 80, height - 70, 'FAMOSO', 'famoso'),
+      this.createChoiceButton(width / 2 + 80, height - 70, 'NON PIT', 'nonpit'),
     ]
     this.nextBtn = this.add.image(width / 2, height - 30, 'btn-basic').setScale(0.5)
     this.nextLabel = this.add.text(this.nextBtn.x, this.nextBtn.y, 'AVANTI', {
@@ -90,7 +90,7 @@ export default class PitOrNonPitScene extends Phaser.Scene {
     }
     this.currentPhrase = this.displayedPhrases[this.currentIndex]
     this.phraseText.setText(`“${this.currentPhrase.text}”`)
-    this.feedbackText.setText('Scegli PIT o FAMOSO')
+    this.feedbackText.setText('Scegli PIT o NON PIT')
     this.lockInput = false
     this.awaitingAdvance = false
     this.buttons.forEach(({ btn }) => btn.setTexture('btn-basic'))

@@ -2,8 +2,8 @@ import Phaser from 'phaser'
 import { signalInteraction } from '../utils/audio'
 
 const RULES_COPY = {
-  PitOrNonPitScene: `Leggi la frase e decidi se è farina del sacco di Pit oppure di un personaggio famoso.
-Tocca PIT o FAMOSO, poi usa Avanti per continuare la sessione. Nessun timer, ragiona con calma.`,
+  PitOrNonPitScene: `Leggi la frase e decidi se è farina del sacco di Pit oppure di qualcun altro.
+Tocca PIT o NON PIT, poi usa Avanti per continuare la sessione. Nessun timer, ragiona con calma.`,
   LagoDiRughiScene: `Pit lancia una lenza nello strano Lago di Rughi.
 Hai 60 secondi per illuderti di pescare qualcosa. Segui il galleggiante e osserva le bolle per capire se qualcosa abbocca.`,
   RimaniConcentratoScene: `Modalità Esame: Pit deve restare vigile per 10 pagine. Tocca ogni sasso colorato appena appare (entro la finestra di tempo). Se ne manca uno, è Game Over. Resisti 10 pagine per vincere.`,

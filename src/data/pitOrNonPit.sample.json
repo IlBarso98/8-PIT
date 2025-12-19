@@ -1,38 +1,120 @@
 [
   {
-    "id": "pit-001",
-    "text": "Se non studio entro in modalità schermata blu.",
+    "id": "pit-101",
+    "text": "Se succede volo in Australia, ti bacio la cappella e ritorno a casa",
     "tag": "pit",
     "author": "Pit",
-    "date": "03/02/2025",
-    "source": "Notes"
+    "date": "15/09/2025"
   },
   {
-    "id": "pit-002",
-    "text": "Ho deciso di preparare l'esame come se fosse un vecchio videogioco 8-bit.",
+    "id": "pit-102",
+    "text": "Credo di essere appena svenuto, non riesco proprio a venire",
+    "tag": "pit",
+    "author": "Pit"
+  },
+  {
+    "id": "pit-103",
+    "text": "In realtà cercavo un posto in Algeria, poi sono finito un po' più in là",
     "tag": "pit",
     "author": "Pit",
-    "date": "11/01/2025"
+    "date": "06/12/2025"
   },
   {
-    "id": "fam-001",
+    "id": "pit-104",
+    "text": "Noi eravamo un covo di fasci",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "28/11/2025"
+  },
+  {
+    "id": "pit-105",
+    "text": "- 17:00; masturbazione\n- 19:00; mc\n- 21:30; masturbazione su rigore inter",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "24/11/2025"
+  },
+  {
+    "id": "pit-106",
+    "text": "Secondo te, fa finta di soffrire se lo saccagni di mazzate?",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "30/10/2025"
+  },
+  {
+    "id": "pit-107",
+    "text": "Possibile perdere punti per il gol di Maripan?",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "27/10/2025"
+  },
+  {
+    "id": "pit-108",
+    "text": "Dovrei andare a giro con un violino tascabile",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "29/04/2025"
+  },
+  {
+    "id": "pit-109",
+    "text": "Conoscete un posto dove qualche minoranza etnica mi lava la macchina dentro-fuori a poche lire?",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "24/04/2025"
+  },
+  {
+    "id": "pit-110",
+    "text": "Dio cane 67, dio cane 75",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "06/12/2024"
+  },
+  {
+    "id": "pit-111",
+    "text": "Se non dai il gol dell'anno a Dani Mota, a chi lo dai?",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "03/12/2024"
+  },
+  {
+    "id": "pit-112",
+    "text": "Materazzi sta bene solo nei surgelati dell'eurospin",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "19/08/2024"
+  },
+  {
+    "id": "pit-113",
+    "text": "Autogrill zona franca da tutti i reati per me",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "16/08/2024"
+  },
+  {
+    "id": "pit-114",
+    "text": "Questo AcMilandiMilano solletica il pisellino",
+    "tag": "pit",
+    "author": "Pit",
+    "date": "15/08/2024"
+  },
+  {
+    "id": "nonpit-001",
     "text": "Stay hungry, stay foolish.",
-    "tag": "famoso",
+    "tag": "nonpit",
     "author": "Steve Jobs",
     "date": "2005",
     "source": "Stanford"
   },
   {
-    "id": "fam-002",
+    "id": "nonpit-002",
     "text": "Che la forza sia con te.",
-    "tag": "famoso",
+    "tag": "nonpit",
     "author": "Obi-Wan Kenobi",
     "date": "1977"
   },
   {
-    "id": "fam-003",
+    "id": "nonpit-003",
     "text": "La creatività è contagiosa, trasmettila.",
-    "tag": "famoso",
+    "tag": "nonpit",
     "author": "Albert Einstein",
     "date": "1949"
   }
