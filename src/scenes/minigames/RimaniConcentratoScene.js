@@ -108,7 +108,7 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
     const panel = this.add.container(width / 2, height / 2).setDepth(20)
     const bg = this.add.rectangle(0, 0, width * 0.9, height * 0.9, 0x000000, 0.75).setOrigin(0.5)
     const card = this.add.rectangle(0, 0, width * 0.8, height * 0.7, 0x0a0a0a, 0.8).setStrokeStyle(3, 0xfacc15, 0.9)
-    const img = this.add.image(0, -40, 'Pitdeconcentrato').setOrigin(0.5)
+    const img = this.add.image(0, -40, 'pit-deconcentrato').setOrigin(0.5)
     const scale = Math.min((width * 0.6) / img.width, (height * 0.4) / img.height)
     img.setScale(scale)
     const text = this.add.text(0, height * 0.14, 'Pit si è deconcentrato e non passerà l’esame', {

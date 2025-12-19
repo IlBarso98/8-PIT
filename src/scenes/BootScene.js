@@ -13,6 +13,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('library-bg', 'assets/library.PNG')
     this.load.image('lake-bg', 'assets/river.png')
     this.load.image('santamaria-bg', 'assets/SantaMaria.png')
+    this.load.image('pit-deconcentrato', 'assets/Pitdeconcentrato.png')
     this.load.image('rock-0', 'assets/cristalloblu.png')
     this.load.image('rock-1', 'assets/cristallorosa.png')
     this.load.image('rock-2', 'assets/cristalloverde.png')
@@ -28,6 +29,7 @@ export default class BootScene extends Phaser.Scene {
     this.ensureTexture('library-bg', () => this.createLibraryBackgroundDetailed())
     this.ensureTexture('lake-bg', () => this.createLakeSpriteDetailed())
     this.ensureTexture('santamaria-bg', () => this.createSantaMariaFallback())
+    this.ensureTexture('pit-deconcentrato', () => this.createPitDeconcentratoFallback())
     this.createRodSprite()
     this.createRockTexturesDetailed()
     this.createButtonTextures()
@@ -413,6 +415,31 @@ export default class BootScene extends Phaser.Scene {
     g.fillRect(0, 0, 8, 10)
     g.fillRect(2, 10, 4, 60)
     g.generateTexture('fishing-rod', 12, 100)
+  }
+
+  createPitDeconcentratoFallback() {
+    const g = this.graphics
+    const w = 220
+    const h = 260
+    g.clear()
+    g.fillStyle(0x0a0a0a, 1)
+    g.fillRect(0, 0, w, h)
+    g.fillStyle(0x2f1f1f, 1)
+    g.fillRect(12, 12, w - 24, h - 24)
+    g.fillStyle(0xffd5a5, 1)
+    g.fillRect(w / 2 - 20, 40, 40, 40)
+    g.fillStyle(0x3b251c, 1)
+    g.fillRect(w / 2 - 24, 30, 48, 16)
+    g.fillStyle(0x4f8f6b, 1)
+    g.fillRect(w / 2 - 32, 100, 64, 80)
+    g.fillStyle(0xd1527e, 1)
+    g.fillRect(w / 2 - 30, 88, 60, 16)
+    g.fillStyle(0xcfa57a, 1)
+    g.fillRect(w / 2 - 28, 180, 56, 20)
+    g.fillStyle(0x111827, 1)
+    g.fillRect(w / 2 - 50, 12, 10, h - 24)
+    g.fillRect(w / 2 + 40, 12, 10, h - 24)
+    g.generateTexture('pit-deconcentrato', w, h)
   }
 
   ensureTexture(key, factory) {
