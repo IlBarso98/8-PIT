@@ -13,6 +13,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('library-bg', 'assets/library.PNG')
     this.load.image('lake-bg', 'assets/river.png')
     this.load.image('santamaria-bg', 'assets/SantaMaria.png')
+    this.load.image('rock-0', 'assets/cristalloblu.png')
+    this.load.image('rock-1', 'assets/cristallorosa.png')
+    this.load.image('rock-2', 'assets/cristalloverde.png')
   }
 
   create() {
@@ -89,21 +92,25 @@ export default class BootScene extends Phaser.Scene {
       [0xf47cab, 0xd1527e, 0x7f2c4f],
       [0x5fe49a, 0x35b86f, 0x1f6b3d],
     ]
-    stones.forEach((palette, index) => {
-      const [light, mid, dark] = palette
-      const g = this.graphics
-      g.clear()
-      g.fillStyle(mid, 1)
-      g.fillRect(0, 0, 24, 24)
-      g.fillStyle(light, 1)
-      g.fillRect(2, 2, 14, 14)
-      g.fillRect(8, 10, 10, 10)
-      g.fillStyle(dark, 1)
-      g.fillRect(0, 14, 12, 6)
-      g.fillRect(12, 0, 6, 12)
-      g.fillRect(16, 16, 6, 8)
-      g.generateTexture(`rock-${index}`, 24, 24)
-    })
+
+    // Use provided crystal PNGs when present; otherwise generate placeholders.
+    for (let index = 0; index < stones.length; index++) {
+      if (!this.textures.exists(`rock-${index}`)) {
+        const [light, mid, dark] = stones[index]
+        const g = this.graphics
+        g.clear()
+        g.fillStyle(mid, 1)
+        g.fillRect(0, 0, 24, 24)
+        g.fillStyle(light, 1)
+        g.fillRect(2, 2, 14, 14)
+        g.fillRect(8, 10, 10, 10)
+        g.fillStyle(dark, 1)
+        g.fillRect(0, 14, 12, 6)
+        g.fillRect(12, 0, 6, 12)
+        g.fillRect(16, 16, 6, 8)
+        g.generateTexture(`rock-${index}`, 24, 24)
+      }
+    }
   }
 
   createButtonTextures() {

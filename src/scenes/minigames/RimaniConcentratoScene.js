@@ -80,10 +80,10 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
       this.activeStone.destroy()
     }
     const position = this.getSafePosition()
-    const colorIndex = Phaser.Math.Between(0, 3)
+    const colorIndex = Phaser.Math.Between(0, 2)
     this.activeStone = this.add
       .image(position.x, position.y, `rock-${colorIndex}`)
-      .setScale(2.2)
+      .setDisplaySize(52, 52)
       .setInteractive({ useHandCursor: true })
     this.activeStone.once('pointerdown', () => this.collectStone())
     this.deadline = this.time.delayedCall(this.getWindowDuration(), () => this.failGame(), null, this)
