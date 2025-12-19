@@ -19,6 +19,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('rock-1', 'assets/cristallorosa.png')
     this.load.image('rock-2', 'assets/cristalloverde.png')
     this.load.image('pitnopit-bg', 'assets/PitNoPitSfondo.png')
+    this.load.image('trap-sigaretta', 'assets/Sigaretta.png')
+    this.load.image('trap-missbo', 'assets/Missbo.png')
+    this.load.svg('trap-milan', 'assets/Milan.svg', { width: 64, height: 64 })
   }
 
   create() {

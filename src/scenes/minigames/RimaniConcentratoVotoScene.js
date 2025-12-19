@@ -31,6 +31,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     this.isGameOver = false
     this.score = 0
     this.totalPages = 10
+    this.trapActive = null
 
     this.pageText = null
     const timerPanel = this.add.rectangle(width - 220, 48, 220, 38, 0x000000, 0.65).setOrigin(0, 0.5).setStrokeStyle(2, 0xfacc15, 0.8)
@@ -45,6 +46,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     })
 
     this.spawnStone()
+    this.scheduleTrap()
   }
 
   tickPage() {
@@ -134,6 +136,13 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     if (this.activeStone) {
       this.activeStone.disableInteractive()
     }
+    if (this.trapTimer) {
+      this.trapTimer.remove(false)
+    }
+    if (this.trapActive) {
+      this.trapActive.destroy()
+      this.trapActive = null
+    }
   }
 
   showLossOverlay(customText) {
@@ -185,5 +194,44 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
       return this.getSafePosition()
     }
     return { x, y }
+  }
+
+  scheduleTrap() {
+    if (this.trapTimer) {
+      this.trapTimer.remove(false)
+    }
+    this.trapTimer = this.time.addEvent({
+      delay: Phaser.Math.Between(2500, 4500),
+      loop: false,
+      callback: () => this.spawnTrap(),
+    })
+  }
+
+  spawnTrap() {
+    if (this.isGameOver || this.activeStone) {
+      this.scheduleTrap()
+      return
+    }
+    const { x, y } = this.getSafePosition()
+    const trapKeys = ['trap-sigaretta', 'trap-missbo', 'trap-milan']
+    const key = Phaser.Utils.Array.GetRandom(trapKeys)
+    this.trapActive = this.add.image(x, y, key).setDisplaySize(52, 52).setInteractive({ useHandCursor: true })
+    this.trapActive.once('pointerdown', () => this.hitTrap())
+    this.time.delayedCall(this.getWindowDuration(), () => {
+      if (this.trapActive) {
+        this.trapActive.destroy()
+        this.trapActive = null
+      }
+      this.scheduleTrap()
+    })
+  }
+
+  hitTrap() {
+    if (!this.trapActive || this.isGameOver) return
+    this.score = Math.max(0, this.score - 1)
+    this.updateVoteText()
+    this.trapActive.destroy()
+    this.trapActive = null
+    this.scheduleTrap()
   }
 }
