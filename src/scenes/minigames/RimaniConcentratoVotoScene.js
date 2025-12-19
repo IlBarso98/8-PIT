@@ -108,9 +108,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
 
   failGame() {
     if (this.isGameOver) return
-    this.isGameOver = true
-    this.showLossOverlay()
-    this.stopAll()
+    this.endWithScore()
   }
 
   endWithScore() {
