@@ -10,16 +10,28 @@ export default class ImprecazioniScene extends Phaser.Scene {
 
   create() {
     const { width, height } = this.scale
-    this.cameras.main.setBackgroundColor('#1c0d1a')
-    this.add.rectangle(width / 2, height / 2, width - 30, height - 40, 0x310d20)
-    this.add.text(width / 2, 50, 'Generatore Randomico di Bestemmie', { fontSize: '12px', color: '#facc15' }).setOrigin(0.5)
+    this.cameras.main.setBackgroundColor('#0a0a0a')
+
+    const bg = this.add.image(width / 2, height / 2, 'santamaria-bg').setOrigin(0.5)
+    bg.setDisplaySize(width, height)
+
+    this.add
+      .rectangle(width / 2, 60, width * 0.9, 34, 0x000000, 0.55)
+      .setStrokeStyle(2, 0xfacc15, 0.8)
+    this.add
+      .text(width / 2, 60, 'Generatore Randomico di Bestemmie', { fontSize: '12px', color: '#facc15' })
+      .setOrigin(0.5)
+
+    const panel = this.add
+      .rectangle(width / 2, height / 2 - 8, width * 0.82, 80, 0x0b0b0b, 0.65)
+      .setStrokeStyle(3, 0xf8fafc, 0.8)
 
     this.outputText = this.add
-      .text(width / 2, height / 2 - 10, 'Premi GENERA', {
-        fontSize: '12px',
+      .text(panel.x, panel.y, 'Premi GENERA', {
+        fontSize: '14px',
         color: '#fef3c7',
         align: 'center',
-        wordWrap: { width: width - 60 },
+        wordWrap: { width: panel.width - 20 },
       })
       .setOrigin(0.5)
 

@@ -40,7 +40,7 @@ export default class LagoDiRughiScene extends Phaser.Scene {
   createPitAndLine() {
     this.rodTip = {
       x: this.scale.width * 0.5,
-      y: this.waterLine + 34,
+      y: this.waterLine + 36,
     }
     this.lineBaseLength = Math.max(100, this.scale.width * 0.25)
     this.lineState = { length: 0 }

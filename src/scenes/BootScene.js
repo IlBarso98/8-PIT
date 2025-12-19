@@ -12,6 +12,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('pit-fish', 'assets/river.png')
     this.load.image('library-bg', 'assets/library.PNG')
     this.load.image('lake-bg', 'assets/river.png')
+    this.load.image('santamaria-bg', 'assets/SantaMaria.png')
   }
 
   create() {
@@ -23,6 +24,7 @@ export default class BootScene extends Phaser.Scene {
     this.ensureTexture('pit-fish', () => this.createPitFishingDetailed())
     this.ensureTexture('library-bg', () => this.createLibraryBackgroundDetailed())
     this.ensureTexture('lake-bg', () => this.createLakeSpriteDetailed())
+    this.ensureTexture('santamaria-bg', () => this.createSantaMariaFallback())
     this.createRodSprite()
     this.createRockTexturesDetailed()
     this.createButtonTextures()
@@ -119,6 +121,24 @@ export default class BootScene extends Phaser.Scene {
     g.lineStyle(4, 0xfacc15, 1)
     g.strokeRect(0, 0, 140, 44)
     g.generateTexture('btn-basic-active', 140, 44)
+  }
+
+  createSantaMariaFallback() {
+    const g = this.graphics
+    const w = 640
+    const h = 360
+    g.clear()
+    const palette = [0x2a1c2e, 0x3c243a, 0x53334c, 0x6b3e5a, 0x9e5f70]
+    for (let y = 0; y < h; y += 24) {
+      for (let x = 0; x < w; x += 24) {
+        const color = palette[(x / 24 + y / 24) % palette.length]
+        g.fillStyle(color, 1)
+        g.fillRect(x, y, 24, 24)
+      }
+    }
+    g.lineStyle(4, 0xfacc15, 0.6)
+    g.strokeRect(12, 12, w - 24, h - 24)
+    g.generateTexture('santamaria-bg', w, h)
   }
 
   createPitPortraitDetailed() {
