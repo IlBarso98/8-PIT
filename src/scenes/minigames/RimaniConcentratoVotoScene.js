@@ -44,7 +44,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
 
     const votePanel = this.add.rectangle(width / 2, 110, width * 0.7, 44, 0x0a0a0a, 0.7).setStrokeStyle(2, 0xf97316, 0.9)
     this.voteText = this.add
-      .text(votePanel.x, votePanel.y, 'Il voto di Pit all’esame è: 0', {
+      .text(votePanel.x, votePanel.y, 'Voto in calcolo…', {
         fontSize: '11px',
         color: '#fef3c7',
         align: 'center',
@@ -106,11 +106,11 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     if (this.isGameOver) return
     signalInteraction(this, 520)
     this.score += SCORES[colorIndex] || 0
-    this.updateVoteText()
     if (this.score >= 31) {
       this.endWithScore()
       return
     }
+    this.updateVoteText()
     if (this.deadline) {
       this.deadline.remove(false)
     }
@@ -118,13 +118,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
   }
 
   updateVoteText() {
-    if (this.score < 18) {
-      this.voteText.setText('Pit ha bocciato l’esame')
-    } else if (this.score >= 31) {
-      this.voteText.setText('Voto: 30 e lode')
-    } else {
-      this.voteText.setText(`Il voto di Pit all’esame è: ${this.score}`)
-    }
+    this.voteText.setText(`Parziale: ${this.score}`)
     this.timerText.setText(`Voto: ${this.getVoteString()}`)
   }
 
@@ -140,6 +134,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     this.isGameOver = true
     this.stopAll()
     const final = this.score >= 31 ? 'Voto: 30 e lode' : this.score < 18 ? 'Pit ha bocciato l’esame' : `Il voto di Pit all’esame è: ${this.score}`
+    this.voteText.setText(final)
     this.showWinOverlay(final)
   }
 
