@@ -18,6 +18,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('rock-0', 'assets/cristalloblu.png')
     this.load.image('rock-1', 'assets/cristallorosa.png')
     this.load.image('rock-2', 'assets/cristalloverde.png')
+    this.load.image('pitnopit-bg', 'assets/PitNoPitSfondo.png')
   }
 
   create() {

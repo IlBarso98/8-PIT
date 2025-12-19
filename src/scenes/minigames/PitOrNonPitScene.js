@@ -13,8 +13,10 @@ export default class PitOrNonPitScene extends Phaser.Scene {
   create() {
     const { width, height } = this.scale
     this.cameras.main.setBackgroundColor('#081229')
-    this.add.rectangle(width / 2, height / 2, width - 20, height - 20, 0x0f1a36)
-    this.add.rectangle(width / 2, 40, width - 30, 36, 0x172554)
+    const bg = this.add.image(width / 2, height / 2, 'pitnopit-bg').setOrigin(0.5)
+    bg.setDisplaySize(width, height)
+    this.add.rectangle(width / 2, height / 2, width - 20, height - 20, 0x0f1a36, 0.6)
+    this.add.rectangle(width / 2, 40, width - 30, 36, 0x172554, 0.85)
     this.score = 0
     updateScore('PitOrNonPitScene', 0)
     this.displayedPhrases = Phaser.Utils.Array.Shuffle(phrases.slice())
