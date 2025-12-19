@@ -43,6 +43,8 @@ export const createGame = () => {
       autoCenter: Phaser.Scale.CENTER_BOTH,
       width: 640,
       height: 360,
+      parent: 'app',
+      expandParent: true,
     },
     physics: {
       default: 'arcade',
