@@ -7,7 +7,7 @@ Tocca PIT o NON PIT, poi usa Avanti per continuare la sessione. Nessun timer, ra
   LagoDiRughiScene: `Pit lancia una lenza nello strano Lago di Rughi.
 Hai 60 secondi per illuderti di pescare qualcosa. Segui il galleggiante e osserva le bolle per capire se qualcosa abbocca.`,
   RimaniConcentratoScene: `Modalità Esame: Pit deve restare vigile per 10 pagine. Tocca ogni sasso colorato appena appare (entro la finestra di tempo). Se ne manca uno, è Game Over. Resisti 10 pagine per vincere.`,
-  RimaniConcentratoVotoScene: `Modalità Voto: stessi sassi e tempi ma ogni cristallo assegna un punteggio (blu=2, rosa=1, verde=3). La somma determina il voto. Sotto 18 è bocciato, sopra 30 diventa 30 e lode.`,
+  RimaniConcentratoVotoScene: `Modalità Voto: stessi sassi e tempi ma ogni cristallo assegna un punteggio (blu=2, rosa=1, verde=3). La somma determina il voto. Sotto 18 è bocciato, sopra 30 diventa 30 e lode. Attento ai distrattori: Cicco -1, Missbo -2, Milan -3.`,
   ImprecazioniScene: `Genera combinazioni casuali di nomi + descrittori per nuove bestemmie.
 Tocca GENERA e poi COPIA per condividerle al volo (clipboard).`,
 }
