@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import { signalInteraction } from '../../utils/audio'
+import { signalInteraction, playSfx } from '../../utils/audio'
 
 export default class RimaniConcentratoScene extends Phaser.Scene {
   constructor() {
@@ -92,6 +92,7 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
   failGame() {
     if (this.isGameOver) return
     this.isGameOver = true
+    playSfx(this, 'sfx-sonodebole', { volume: 0.9 })
     this.showLossOverlay()
     this.stopAll()
   }
@@ -99,6 +100,7 @@ export default class RimaniConcentratoScene extends Phaser.Scene {
   winGame() {
     if (this.isGameOver) return
     this.isGameOver = true
+    playSfx(this, 'sfx-piter2', { volume: 0.9 })
     this.showWinOverlay()
     this.stopAll()
   }

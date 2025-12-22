@@ -22,6 +22,11 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('trap-sigaretta', 'assets/Sigaretta.png')
     this.load.image('trap-missbo', 'assets/Missbo.png')
     this.load.svg('trap-milan', 'assets/Milan.svg', { width: 64, height: 64 })
+    this.load.audio('sfx-piteeer', 'assets/audio/PITEEEEER.mp3')
+    this.load.audio('sfx-river', 'assets/audio/RiverPitaudio.mp3')
+    this.load.audio('sfx-sonodebole', 'assets/audio/Sonodebole.mp3')
+    this.load.audio('sfx-piter2', 'assets/audio/Piter2.mp3')
+    this.load.audio('sfx-diocaaaaa', 'assets/audio/DioCaaaaa.mp3')
   }
 
   create() {

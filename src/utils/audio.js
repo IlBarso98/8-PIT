@@ -40,3 +40,9 @@ export const signalInteraction = (scene, frequency = 360) => {
   playTone(scene, frequency)
   vibrate()
 }
+
+export const playSfx = (scene, key, config) => {
+  if (getStore().muted) return
+  if (!scene.sound) return
+  scene.sound.play(key, config)
+}

@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import { signalInteraction } from '../../utils/audio'
+import { signalInteraction, playSfx } from '../../utils/audio'
 
 const SCORES = {
   0: 2, // blu
@@ -119,11 +119,13 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     this.isGameOver = true
     this.stopAll()
     if (this.score < 18) {
+      playSfx(this, 'sfx-sonodebole', { volume: 0.9 })
       this.showLossOverlay('Pit ha bocciato l’esame')
       return
     }
     const final =
       this.score >= 31 ? 'Voto: 30 e lode' : `Il voto di Pit all’esame è: ${Math.min(this.score, 30)}`
+    playSfx(this, 'sfx-piter2', { volume: 0.9 })
     this.showWinOverlay(final)
   }
 

@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import phrases from '../../data/pitOrNonPit.sample.json'
 import { updateScore } from '../../state/store'
-import { signalInteraction } from '../../utils/audio'
+import { signalInteraction, playSfx } from '../../utils/audio'
 
 export default class PitOrNonPitScene extends Phaser.Scene {
   constructor() {
@@ -107,6 +107,11 @@ export default class PitOrNonPitScene extends Phaser.Scene {
     this.score += isCorrect ? 1 : -1
     updateScore('PitOrNonPitScene', this.score)
     signalInteraction(this, isCorrect ? 520 : 180)
+    if (isCorrect) {
+      playSfx(this, 'sfx-piteeer', { volume: 0.8 })
+    } else {
+      playSfx(this, 'sfx-river', { volume: 0.8 })
+    }
     this.scoreText.setText(`SCORE: ${this.score}`)
     const info = [`L'ha detto: ${this.currentPhrase.author}`]
     if (this.currentPhrase.date) {

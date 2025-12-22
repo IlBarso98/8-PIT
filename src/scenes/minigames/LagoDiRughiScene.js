@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import { addRegistration, getRegistrations } from '../../state/store'
-import { signalInteraction } from '../../utils/audio'
+import { signalInteraction, playSfx } from '../../utils/audio'
 
 const HINTS = ['Oh! Abbocca!', 'Silenzio…', 'Forse era un cavo?', 'Credo fosse un riflesso.']
 
@@ -8,6 +8,7 @@ export default class LagoDiRughiScene extends Phaser.Scene {
   constructor() {
     super('LagoDiRughiScene')
     this.timeRemaining = 60
+    this.pullCount = 0
   }
 
   create() {
@@ -35,6 +36,7 @@ export default class LagoDiRughiScene extends Phaser.Scene {
 
     this.createPitAndLine()
     this.createButtons()
+    this.pullCount = 0
     this.timerEvent = this.time.addEvent({
       delay: 1000,
       loop: true,
@@ -84,12 +86,17 @@ export default class LagoDiRughiScene extends Phaser.Scene {
   }
 
   pullLine() {
+    this.pullCount += 1
     this.startLineTween(0, 220, false, 0, () => {
       this.lineRetracted = true
       this.lineState.length = 0
       this.updateLineVisual()
       this.messageText.setText('Solo bolle.')
     })
+    playSfx(this, 'sfx-river', { volume: 0.7 })
+    if (this.pullCount % 3 === 0) {
+      playSfx(this, 'sfx-diocaaaaa', { volume: 0.9 })
+    }
   }
 
   startLineTween(targetLength, duration, yoyo, hold, onComplete) {
