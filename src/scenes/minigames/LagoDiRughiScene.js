@@ -9,6 +9,7 @@ export default class LagoDiRughiScene extends Phaser.Scene {
     super('LagoDiRughiScene')
     this.timeRemaining = 60
     this.pullCount = 0
+    this.pullCycle = 0
   }
 
   create() {
@@ -37,6 +38,7 @@ export default class LagoDiRughiScene extends Phaser.Scene {
     this.createPitAndLine()
     this.createButtons()
     this.pullCount = 0
+    this.pullCycle = 0
     this.timerEvent = this.time.addEvent({
       delay: 1000,
       loop: true,
@@ -87,15 +89,19 @@ export default class LagoDiRughiScene extends Phaser.Scene {
 
   pullLine() {
     this.pullCount += 1
+    this.pullCycle = (this.pullCycle + 1) % 3
     this.startLineTween(0, 220, false, 0, () => {
       this.lineRetracted = true
       this.lineState.length = 0
       this.updateLineVisual()
       this.messageText.setText('Solo bolle.')
     })
-    playSfx(this, 'sfx-river', { volume: 0.7 })
-    if (this.pullCount % 3 === 0) {
-      playSfx(this, 'sfx-diocaaaaa', { volume: 0.9 })
+    if (this.pullCycle === 0) {
+      playSfx(this, 'sfx-river', { volume: 0.7 })
+    } else if (this.pullCycle === 1) {
+      playSfx(this, 'sfx-diocaaaaa', { volume: 0.85 })
+    } else if (this.pullCycle === 2) {
+      playSfx(this, 'sfx-dioiaaa', { volume: 0.85 })
     }
   }
 

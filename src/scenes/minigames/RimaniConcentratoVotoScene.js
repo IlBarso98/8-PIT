@@ -235,6 +235,7 @@ export default class RimaniConcentratoVotoScene extends Phaser.Scene {
     }
     const malus = penalties[key] || 1
     this.score = Math.max(0, this.score - malus)
+    playSfx(this, 'sfx-dioiaaa', { volume: 0.9 })
     this.updateVoteText()
     this.trapActive.destroy()
     this.trapActive = null
