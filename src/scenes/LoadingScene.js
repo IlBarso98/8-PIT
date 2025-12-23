@@ -23,6 +23,21 @@ export default class LoadingScene extends Phaser.Scene {
     const barFill = this.add.rectangle(barBg.x - barBg.width / 2, 240, 320, 18, 0x0f172a).setOrigin(0, 0.5)
     barFill.scaleX = 0.01
 
+    const startHomeMusic = () => {
+      const existing = this.sound.get('music-home')
+      if (existing) {
+        if (!existing.isPlaying) existing.play()
+      } else {
+        this.sound.add('music-home', { loop: true, volume: 0.5 }).play()
+      }
+    }
+
+    if (this.sound.locked) {
+      this.sound.once(Phaser.Sound.Events.UNLOCKED, startHomeMusic)
+    } else {
+      startHomeMusic()
+    }
+
     this.time.delayedCall(2800, () => {
       this.scene.start('StartScene')
     })

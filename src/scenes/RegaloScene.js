@@ -8,6 +8,7 @@ export default class RegaloScene extends Phaser.Scene {
     this.bonusIndex = 0
     this.giftScale = 1
     this.music = null
+    this.borisExtra = []
   }
 
   create() {
@@ -39,6 +40,14 @@ export default class RegaloScene extends Phaser.Scene {
     this.boris2.setScale(borisScale * 0.6)
     this.boris3 = this.add.image(width / 2 + 100, height / 2 - 60, 'boris-3').setVisible(false).setOrigin(0.5)
     this.boris3.setScale(borisScale * 0.6)
+    this.boris4 = this.add.image(width / 2 - 100, height / 2 + 40, 'boris-2').setVisible(false).setOrigin(0.5)
+    this.boris4.setScale(borisScale * 0.55)
+    this.boris5 = this.add.image(width / 2 + 100, height / 2 + 40, 'boris-3').setVisible(false).setOrigin(0.5)
+    this.boris5.setScale(borisScale * 0.55)
+    this.boris6 = this.add.image(width / 2 - 100, height / 2 + 120, 'boris-2').setVisible(false).setOrigin(0.5)
+    this.boris6.setScale(borisScale * 0.5)
+    this.boris7 = this.add.image(width / 2 + 100, height / 2 + 120, 'boris-3').setVisible(false).setOrigin(0.5)
+    this.boris7.setScale(borisScale * 0.5)
 
     this.bonusPromptBg = this.add
       .rectangle(width / 2, height - 50, width * 0.7, 36, 0x0b0b0b, 0.8)
@@ -89,7 +98,21 @@ export default class RegaloScene extends Phaser.Scene {
     } else if (this.bonusIndex === 1) {
       this.boris3.setVisible(true)
       this.bonusIndex = 2
+    } else if (this.bonusIndex === 2) {
+      this.boris4.setVisible(true)
+      this.bonusIndex = 3
+    } else if (this.bonusIndex === 3) {
+      this.boris5.setVisible(true)
+      this.bonusIndex = 4
+    } else if (this.bonusIndex === 4) {
+      this.boris6.setVisible(true)
+      this.bonusIndex = 5
+    } else if (this.bonusIndex === 5) {
+      this.boris7.setVisible(true)
+      this.bonusIndex = 6
       this.prompt.setText('Regalo completato!')
+      this.bonusPromptBg.setVisible(false)
+      this.bonusPrompt.setVisible(false)
     }
   }
 
