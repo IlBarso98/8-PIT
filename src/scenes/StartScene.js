@@ -53,19 +53,22 @@ export default class StartScene extends Phaser.Scene {
     const existing = this.sound.get('music-home')
     if (existing) {
       this.music = existing
-      if (!this.music.isPlaying) {
-        this.music.play()
-      }
     } else {
       this.music = this.sound.add('music-home', { loop: true, volume: 0.5 })
-      this.music.play()
+    }
+    const playHome = () => {
+      if (this.music && !this.music.isPlaying) {
+        this.music.play()
+      }
+    }
+    if (this.sound.locked) {
+      this.sound.once(Phaser.Sound.Events.UNLOCKED, playHome)
+    } else {
+      playHome()
     }
 
     this.input.once('pointerdown', () => {
       signalInteraction(this)
-      if (this.music && !this.music.isPlaying) {
-        this.music.play()
-      }
       this.scene.start('MenuScene')
     })
   }

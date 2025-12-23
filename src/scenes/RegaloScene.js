@@ -40,6 +40,18 @@ export default class RegaloScene extends Phaser.Scene {
     this.boris3 = this.add.image(width / 2 + 100, height / 2 - 60, 'boris-3').setVisible(false).setOrigin(0.5)
     this.boris3.setScale(borisScale * 0.6)
 
+    this.bonusPromptBg = this.add
+      .rectangle(width / 2, height - 50, width * 0.7, 36, 0x0b0b0b, 0.8)
+      .setStrokeStyle(2, 0xfacc15, 0.9)
+      .setVisible(false)
+    this.bonusPrompt = this.add
+      .text(width / 2, height - 50, 'Premi ancora per scoprire cosa contiene', {
+        fontSize: '12px',
+        color: '#fef3c7',
+      })
+      .setOrigin(0.5)
+      .setVisible(false)
+
     this.giftClosed.setInteractive({ useHandCursor: true })
     this.giftClosed.on('pointerdown', () => this.openGift())
     this.boris.setInteractive({ useHandCursor: true })
@@ -63,6 +75,8 @@ export default class RegaloScene extends Phaser.Scene {
     this.giftOpen.setVisible(false)
     this.boris.setVisible(true)
     this.prompt.setText('Tocca il regalo per scoprire di più')
+    this.bonusPromptBg.setVisible(true)
+    this.bonusPrompt.setVisible(true)
     this.playRegaloMusic()
   }
 
