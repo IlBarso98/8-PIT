@@ -46,6 +46,10 @@ export default class MenuScene extends Phaser.Scene {
 
       entry.on('pointerdown', () => {
         signalInteraction(this)
+        const music = this.sound.get('music-home')
+        if (music) {
+          music.stop()
+        }
         setCurrentMinigame(item.sceneKey)
         this.scene.start('RulesScene', { minigame: item.sceneKey, label: item.label })
       })

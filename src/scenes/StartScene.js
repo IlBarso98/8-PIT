@@ -4,6 +4,7 @@ import { signalInteraction } from '../utils/audio'
 export default class StartScene extends Phaser.Scene {
   constructor() {
     super('StartScene')
+    this.music = null
   }
 
   create() {
@@ -47,6 +48,18 @@ export default class StartScene extends Phaser.Scene {
       duration: 600,
       repeat: -1,
     })
+
+    // Start or resume home music
+    const existing = this.sound.get('music-home')
+    if (existing) {
+      this.music = existing
+      if (!this.music.isPlaying) {
+        this.music.play()
+      }
+    } else {
+      this.music = this.sound.add('music-home', { loop: true, volume: 0.5 })
+      this.music.play()
+    }
 
     this.input.once('pointerdown', () => {
       signalInteraction(this)
