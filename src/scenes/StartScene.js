@@ -49,20 +49,19 @@ export default class StartScene extends Phaser.Scene {
       repeat: -1,
     })
 
-    // Start or resume home music
+    // Prepare home music (starts on first tap to respect autoplay policies)
     const existing = this.sound.get('music-home')
     if (existing) {
       this.music = existing
-      if (!this.music.isPlaying) {
-        this.music.play()
-      }
     } else {
       this.music = this.sound.add('music-home', { loop: true, volume: 0.5 })
-      this.music.play()
     }
 
     this.input.once('pointerdown', () => {
       signalInteraction(this)
+      if (this.music && !this.music.isPlaying) {
+        this.music.play()
+      }
       this.scene.start('MenuScene')
     })
   }
