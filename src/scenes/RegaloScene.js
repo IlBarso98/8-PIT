@@ -36,18 +36,16 @@ export default class RegaloScene extends Phaser.Scene {
     const borisScale = Math.min((width * 0.7) / this.boris.width, (height * 0.7) / this.boris.height)
     this.boris.setScale(borisScale)
 
-    this.boris2 = this.add.image(width / 2 - 100, height / 2 - 60, 'boris-2').setVisible(false).setOrigin(0.5)
-    this.boris2.setScale(borisScale * 0.6)
-    this.boris3 = this.add.image(width / 2 + 100, height / 2 - 60, 'boris-3').setVisible(false).setOrigin(0.5)
-    this.boris3.setScale(borisScale * 0.6)
-    this.boris4 = this.add.image(width / 2 - 100, height / 2 + 40, 'boris-2').setVisible(false).setOrigin(0.5)
-    this.boris4.setScale(borisScale * 0.55)
-    this.boris5 = this.add.image(width / 2 + 100, height / 2 + 40, 'boris-3').setVisible(false).setOrigin(0.5)
-    this.boris5.setScale(borisScale * 0.55)
-    this.boris6 = this.add.image(width / 2 - 100, height / 2 + 120, 'boris-2').setVisible(false).setOrigin(0.5)
-    this.boris6.setScale(borisScale * 0.5)
-    this.boris7 = this.add.image(width / 2 + 100, height / 2 + 120, 'boris-3').setVisible(false).setOrigin(0.5)
-    this.boris7.setScale(borisScale * 0.5)
+    const extraScale = borisScale * 0.6
+    const row1Y = height / 2 - 60
+    const row2Y = height / 2 + 30
+    const row3Y = height / 2 + 120
+    this.boris2 = this.add.image(width / 2 - 100, row1Y, 'boris-2').setVisible(false).setOrigin(0.5).setScale(extraScale)
+    this.boris3 = this.add.image(width / 2 + 100, row1Y, 'boris-3').setVisible(false).setOrigin(0.5).setScale(extraScale)
+    this.boris4 = this.add.image(width / 2 - 100, row2Y, 'boris-4').setVisible(false).setOrigin(0.5).setScale(extraScale)
+    this.boris5 = this.add.image(width / 2 + 100, row2Y, 'boris-5').setVisible(false).setOrigin(0.5).setScale(extraScale)
+    this.boris6 = this.add.image(width / 2 - 100, row3Y, 'boris-6').setVisible(false).setOrigin(0.5).setScale(extraScale)
+    this.boris7 = this.add.image(width / 2 + 100, row3Y, 'boris-7').setVisible(false).setOrigin(0.5).setScale(extraScale)
 
     this.bonusPromptBg = this.add
       .rectangle(width / 2, height - 50, width * 0.7, 36, 0x0b0b0b, 0.8)

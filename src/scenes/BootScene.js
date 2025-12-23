@@ -36,6 +36,10 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('boris-1', 'assets/boris.webp')
     this.load.image('boris-2', 'assets/boris2.webp')
     this.load.image('boris-3', 'assets/boris3.webp')
+    this.load.image('boris-4', 'assets/boris 4.webp')
+    this.load.image('boris-5', 'assets/boris 5.webp')
+    this.load.image('boris-6', 'assets/boris 6.webp')
+    this.load.image('boris-7', 'assets/boris 7.webp')
   }
 
   create() {
