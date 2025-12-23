@@ -16,13 +16,9 @@ export default class LagoDiRughiScene extends Phaser.Scene {
     const { width, height } = this.scale
     this.timeRemaining = 60
     this.cameras.main.setBackgroundColor('#062942')
-    this.music = this.sound.get('music-lake')
-    if (!this.music) {
-      this.music = this.sound.add('music-lake', { loop: true, volume: 0.4 })
-      this.music.play()
-    } else if (!this.music.isPlaying) {
-      this.music.play()
-    }
+    this.sound.stopByKey('music-lake')
+    this.music = this.sound.add('music-lake', { loop: true, volume: 0.4 })
+    this.music.play()
     const bg = this.add.image(width / 2, height / 2, 'lake-bg').setOrigin(0.5)
     bg.setDisplaySize(width, height)
     this.waterLine = Math.floor(height * 0.62)
@@ -207,6 +203,7 @@ export default class LagoDiRughiScene extends Phaser.Scene {
   }
 
   cleanup() {
+    this.sound.stopByKey('music-lake')
     this.bubbleTimer?.remove(false)
     this.lineTween?.remove()
     if (this.bubbles) {
