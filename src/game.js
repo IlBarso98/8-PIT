@@ -11,6 +11,7 @@ import LagoDiRughiScene from './scenes/minigames/LagoDiRughiScene'
 import RimaniConcentratoScene from './scenes/minigames/RimaniConcentratoScene'
 import RimaniConcentratoVotoScene from './scenes/minigames/RimaniConcentratoVotoScene'
 import ImprecazioniScene from './scenes/minigames/ImprecazioniScene'
+import RegaloScene from './scenes/RegaloScene'
 import { resetMinigameState } from './state/store'
 
 const scenes = [
@@ -25,6 +26,7 @@ const scenes = [
   RimaniConcentratoScene,
   RimaniConcentratoVotoScene,
   ImprecazioniScene,
+  RegaloScene,
 ]
 
 export const createGame = () => {

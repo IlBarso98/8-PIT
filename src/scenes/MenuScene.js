@@ -7,6 +7,7 @@ const MENU_ITEMS = [
   { label: 'LAGO DI RUGHI', sceneKey: 'LagoDiRughiScene' },
   { label: 'RIMANI CONCENTRATO', sceneKey: 'RimaniConcentratoScene' },
   { label: 'GENERATORE RANDOMICO DI BESTEMMIE', sceneKey: 'ImprecazioniScene' },
+  { label: 'REGALO DI PIT', sceneKey: 'RegaloScene' },
 ]
 
 export default class MenuScene extends Phaser.Scene {
@@ -51,7 +52,11 @@ export default class MenuScene extends Phaser.Scene {
           music.stop()
         }
         setCurrentMinigame(item.sceneKey)
-        this.scene.start('RulesScene', { minigame: item.sceneKey, label: item.label })
+        if (item.sceneKey === 'RegaloScene') {
+          this.scene.start('RegaloScene')
+        } else {
+          this.scene.start('RulesScene', { minigame: item.sceneKey, label: item.label })
+        }
       })
 
       entry.on('pointerover', () => {
